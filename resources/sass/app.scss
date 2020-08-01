@@ -1,0 +1,19 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+.container.board{
+    background: white;
+    padding: 20px;
+    margin-top: 30px; 
+}
+
+#add-board{
+    float: right;
+}
