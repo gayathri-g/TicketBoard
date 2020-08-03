@@ -27,7 +27,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import draggable from 'vuedraggable'
+import ticketBoard from './components/ticketBoard.vue';
 
 if ($('#app').length > 0) {
     const app = new Vue({
@@ -38,92 +38,8 @@ if ($('#app').length > 0) {
 if ($('#board-app').length > 0) {
     const app = new Vue({
         el: '#board-app',
-        data: {
-            boards: [],
-            board: {
-                name: '',
-                description: '',
-                type: '',
-                terms: ''
-            }
-        },
-        components: {
-            // draggable,  
-        },
-        mounted() {
-            $('#AddBoard').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: false
-            })
-            $('#deleteModal').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: false
-            })
-            $('#activateModal').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: false
-            })
-
-            this.getBoards();
-        },
-        methods: {
-            getBoards() {
-                var self = this;
-                axios.get('/get-boards').then(function (response) {
-                    self.boards = response.data;
-                    console.log(response.data);
-                });
-            },
-            resetBoard() {
-                this.board = {
-                    name: '',
-                    description: '',
-                    type: '',
-                    terms: ''
-                }
-            },
-            storeBoard() {
-                var self = this;
-                if (!self.board.action) {
-                    self.board.action = 'store';
-                }
-                axios.post('/store-boards', this.board).then(function (response) {
-                    if (self.board.action == 'store') {
-                        self.boards.push(response.data);
-                    } else if (self.board.action == 'delete') {
-                        var index = _.findIndex(self.boards, {
-                            id: self.board.id
-                        });
-                        self.boards.splice(index, 1);
-                    } else {
-                        var index = _.findIndex(self.boards, {
-                            id: self.board.id
-                        });
-                        self.boards.splice(index, 1, response.data);
-                    }
-                    var divId = '';
-                    (self.board.action == 'edit' || self.board.action == 'store') ? (divId = 'AddBoard') : (self.board.action == 'delete' ? divId = 'deleteModal' : divId = 'activateModal');
-                    $('#' + divId).modal('hide');
-                    self.resetBoard();
-                    console.log(response.data);
-                });
-            },
-            boardAction(board, action) {
-                this.board = {
-                    name: board.Board_name,
-                    description: board.Board_description,
-                    type: board.Board_type,
-                    terms: board.terms,
-                    id: board.id,
-                    action: action
-                }
-                var divId = '';
-                action == 'edit' ? (divId = 'AddBoard') : (action == 'delete' ? divId = 'deleteModal' : divId = 'activateModal');
-                $('#' + divId).modal('show');
-            }
+        components:{
+            ticketBoard
         }
     });
 }
