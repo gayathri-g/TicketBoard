@@ -220,7 +220,8 @@
                     type: board.Board_type,
                     terms: board.terms,
                     id: board.id,
-                    action: action
+                    action: action,
+                    Board_status : board.Board_status
                 }
                 var divId = '';
                 action == 'edit' ? (divId = 'AddBoard') : (action == 'delete' ? divId = 'deleteModal' : divId =
